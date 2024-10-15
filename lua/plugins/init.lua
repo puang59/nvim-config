@@ -27,7 +27,26 @@ local default_plugins = {
   {
     "github/copilot.vim",
     lazy = false,
-  }, 
+  },
+  {
+    'datsfilipe/vesper.nvim',
+    lazy = false,  -- Ensure the plugin loads on startup
+    config = function()
+      require('vesper').setup({
+        transparent = false, -- Boolean: Sets the background to transparent
+        italics = {
+          comments = true, -- Boolean: Italicizes comments
+          keywords = true, -- Boolean: Italicizes keywords
+          functions = true, -- Boolean: Italicizes functions
+          strings = true, -- Boolean: Italicizes strings
+          variables = true, -- Boolean: Italicizes variables
+        },
+        overrides = {}, -- A dictionary of group names, can be a function returning a dictionary or a table.
+        palette_overrides = {}
+      })
+      vim.cmd.colorscheme('vesper')  -- Set the colorscheme
+    end,
+  },
   {
     "NvChad/nvterm",
     init = function()
@@ -83,6 +102,12 @@ local default_plugins = {
 
   {
     "nvim-treesitter/nvim-treesitter",
+    dependencies = {
+      {
+        "windwp/nvim-ts-autotag",
+        opts ={}
+      },
+    },
     init = function()
       require("core.utils").lazy_load "nvim-treesitter"
     end,
@@ -270,6 +295,9 @@ local default_plugins = {
     end,
   },
 
+  {
+    "ThePrimeagen/harpoon",
+  },
   -- Only load whichkey after all the gui
   {
     "folke/which-key.nvim",

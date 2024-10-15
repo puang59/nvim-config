@@ -22,7 +22,18 @@ M.general = {
     ["<C-l>"] = { "<C-w>l", "Window right" },
     ["<C-j>"] = { "<C-w>j", "Window down" },
     ["<C-k>"] = { "<C-w>k", "Window up" },
-    
+
+    -- Harpoon key mappings
+    ["<leader>a"] = { "<cmd>lua require('harpoon.mark').add_file()<CR>", "Mark file" },
+    ["<leader>q"] = { "<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>", "Harpoon quick menu" },
+    ["<leader>1"] = { "<cmd>lua require('harpoon.ui').nav_file(1)<CR>", "Navigate to file 1" },
+    ["<leader>2"] = { "<cmd>lua require('harpoon.ui').nav_file(2)<CR>", "Navigate to file 2" },
+    ["<leader>3"] = { "<cmd>lua require('harpoon.ui').nav_file(3)<CR>", "Navigate to file 3" },
+    ["<leader>4"] = { "<cmd>lua require('harpoon.ui').nav_file(4)<CR>", "Navigate to file 4" },
+    ["<leader>r"] = { "<cmd>lua require('harpoon.mark').rm_file()<CR>", "Remove file from Harpoon" },
+    ["<leader>o"] = { "<cmd>lua require('harpoon.ui').nav_next()<CR>", "Navigate to next file" },
+    ["<leader>p"] = { "<cmd>lua require('harpoon.ui').nav_prev()<CR>", "Navigate to previous file" },
+
     -- Lazygit
     ["<leader>gg"] = {"<cmd>LazyGit<CR>"};
 
