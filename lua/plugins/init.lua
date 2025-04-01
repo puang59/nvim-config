@@ -14,10 +14,6 @@ local default_plugins = {
   {
     "kdheepak/lazygit.nvim",
     lazy = false,
-    -- optional for floating window border decoration
-    -- dependencies = {
-    --     "nvim-lua/plenary.nvim",
-    -- },
   },
   {
     "NvChad/ui",
@@ -28,26 +24,7 @@ local default_plugins = {
     "github/copilot.vim",
     lazy = false,
   },
-  {
-    'datsfilipe/vesper.nvim',
-    lazy = false,  -- Ensure the plugin loads on startup
-    config = function()
-      require('vesper').setup({
-        transparent = false, -- Boolean: Sets the background to transparent
-        italics = {
-          comments = true, -- Boolean: Italicizes comments
-          keywords = true, -- Boolean: Italicizes keywords
-          functions = true, -- Boolean: Italicizes functions
-          strings = true, -- Boolean: Italicizes strings
-          variables = true, -- Boolean: Italicizes variables
-        },
-        overrides = {}, -- A dictionary of group names, can be a function returning a dictionary or a table.
-        palette_overrides = {}
-      })
-      vim.cmd.colorscheme('vesper')  -- Set the colorscheme
-    end,
-  },
-  {
+{
     "NvChad/nvterm",
     init = function()
       require("core.utils").load_mappings "nvterm"
@@ -311,6 +288,58 @@ local default_plugins = {
       require("which-key").setup(opts)
     end,
   },
+  {
+    "yetone/avante.nvim",
+    event = "VeryLazy",
+    lazy = false,
+    version = false, -- Set this to "*" to always pull the latest release version, or set it to false to update to the latest code changes.
+    opts = {
+      provider = "openai",
+      openai = {
+        model = "gpt-3.5-turbo",
+      }
+    },
+    -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
+    build = "make",
+    -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
+    dependencies = {
+      "stevearc/dressing.nvim",
+      "nvim-lua/plenary.nvim",
+      "MunifTanjim/nui.nvim",
+      --- The below dependencies are optional,
+      "echasnovski/mini.pick", -- for file_selector provider mini.pick
+      "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
+      "hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
+      "ibhagwan/fzf-lua", -- for file_selector provider fzf
+      "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
+      "zbirenbaum/copilot.lua", -- for providers='copilot'
+      {
+        -- support for image pasting
+        "HakonHarnes/img-clip.nvim",
+        event = "VeryLazy",
+        opts = {
+          -- recommended settings
+          default = {
+            embed_image_as_base64 = false,
+            prompt_for_file_name = false,
+            drag_and_drop = {
+              insert_mode = true,
+            },
+            -- required for Windows users
+            use_absolute_path = true,
+          },
+        },
+      },
+      {
+        -- Make sure to set this up properly if you have lazy=true
+        'MeanderingProgrammer/render-markdown.nvim',
+        opts = {
+          file_types = { "markdown", "Avante" },
+        },
+        ft = { "markdown", "Avante" },
+      },
+    },
+  }
 }
 
 local config = require("core.utils").load_config()
